@@ -21,7 +21,7 @@
 
    <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-2.png?raw=true" alt="1-2" style="zoom: 50%;" />
 
-3. choose the OS in burner and burn into the RaspberryPI 4B board. Our group choose the **Raspberry Pi OS Full(32-bit) -2.6GBytes** as system.
+3. choose the OS in burner and burn into the RaspberryPI 4B board. Our group choose the **Raspberry Pi OS (32-bit) -(Recommed)** as system.
 
    <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-3.png?raw=true" alt="1-3" style="zoom: 50%;" />
 
@@ -103,4 +103,52 @@ Terminal input  ```sudo raspi-config ``` ,choose "Interface Options" -> "VNC"
 | drive the robot                      | RPI.GPIO     |
 | Follow Track according to the camera | OPENCV       |
 | Obstacle detection method            | OPENCV       |
+
+### install package
+
+Opencv build：
+
+> When configuring the environment, we need to pay special attention to the version problems between library files.
+>
+> example：now newest version of ```opencv-python is 4.6.0.66``` , require ```numpy >= 1.19.3``` well if you follow the document to build OS env , the numpy version should be ```1.19.5```. However it will make bug while use ```1.19.5```. Be sure update the numpy version.
+>
+> *In order to use automatic completion  in VSCODE, the version uses：4.5.5.62
+> Other version check :[pypi-opencv](https://pypi.org/project/opencv-python/)
+
+```python
+pip install -U numpy	#numpy-1.23.5 in 2022.11
+pip install opencv-python==4.5.5.62 # opencv-python-4.6.0.66 in 2022.11
+pip install opencv-python-headless==4.5.5.62# opencv-python-headless-4.6.0.66 in 2022.11
+pip install opencv-contrib-python==4.5.5.62 #2022.11:not 4.6.0.66 in armv7l 
+
+#tool-chains:
+sudo apt-get install libhdf5-dev
+sudo apt-get install libatlas-base-dev
+```
+
+
+
+### build X11Display
+
+> well, if we won't use hdmi to show the graph , X11 is a choice to remote show RaspberryPI graph but use client GPU
+>
+> * following in the macOS 13.0(windows are the same logical ,find some tips in nets)
+
+In raspberryPI ```vi /etc/ssh/sshd_config ``` find ```X11Forwarding``` and ```X11DisplayOffset ```
+
+Set the Value ```X11Forwarding yes X11DisplayOffset 10 ```
+
+And restart the ssh service ``` service ssh restart```
+
+And then edit on Mac ``` vi /private/etc/ssh/ssh_config``` find and fill```ForwardX11 yes```
+
+this step is complete.
+
+> when you use ssh to connect RaspberryPI , fill ``` -X``` before your usename
+
+### using VSCODE iDE
+
+> If you want to write code in RaspberryPI  I highly recommend VSCODE;
+>
+> Download ```Remote-SSH``` in expands and do some easy config,It can upgrade your code experience.
 
