@@ -1,14 +1,14 @@
-# Technical-Project : SmartCar develop
+# Technical-Project : 4wdSmartCar User Build Document
 
-#Author:_Liu qianrong_
-				_Cao Han_
-				_Liu zongzhen_
+#Author:_Liu qianrong 202244060130_
+				_Cao Han 202244060101_
+				_Liu zongzhen 202244060131_
 
 #Group:_1.7_
 
 #Data:_2022-11_
 
-# Step one-Prepare env
+# Step one: Prepare OS env
 
 
 
@@ -51,3 +51,56 @@ WIFI_pd:xxxxx
 ```
 
 **We can build more config after in PI OS*
+
+6. After waiting for a few minutes, after the machine burns the system, the opportunity has the following tips.
+
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-7.png?raw=true" alt="1-7" style="zoom: 50%;" />
+
+And then we can remove the sd card safely, and push into raspberryPI.Power on and wait for a while.
+
+Use the ARP command to the find currently connected device.
+
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-8.png?raw=true" alt="1-8" style="zoom: 50%;" />
+
+We can clearly find the raspberrypi.lan show(through WIFI) as 192.168.2.219, using SSH service and Terminal to connect it.
+
+```powershell
+ssh pi@192.168.2.129
+```
+
+Then enter the password given above.
+
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-9.png?raw=true" alt="1-9" style="zoom: 50%;" />
+
+The system was successfully connected through the ssh.
+
+## *Option
+
+### Raspberry Pi Software Configuration Tool
+
+So if you don't wan to show the image in screen , maybe VNC connect is you best friend.
+
+Terminal input  ```sudo raspi-config ``` ,choose "Interface Options" -> "VNC"
+
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-10.png?raw=true" alt="1-10" style="zoom: 50%;" />
+
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-11.png?raw=true" alt="1-11" style="zoom: 50%;" />
+
+> For subsequent development, we should also Enable the "Remote GPIO" and "Legacy Camera"
+>
+> *"Serial port": if we can want to use audrino to connect the raspberryPI
+>
+> Later, you can also come to this interface for setup according to relevant needs.
+
+
+
+# Step two: Code env build
+
+## list of tasks1.0
+
+| task                                 | Library file |
+| ------------------------------------ | ------------ |
+| drive the robot                      | RPI.GPIO     |
+| Follow Track according to the camera | OPENCV       |
+| Obstacle detection method            | OPENCV       |
+
