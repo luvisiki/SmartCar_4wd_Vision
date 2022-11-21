@@ -19,10 +19,10 @@ def Camera_Tracking_Road():
         higer_hsv = np.array([180, 255, 46])
         # 二值化处理(Binary processing)
         mask = cv2.inRange(hsv, lower_hsv, higer_hsv)
-        # 腐蚀操作（Corrosion operation）
-        mask = cv2.erode(mask, None, iterations=2)
-        # 膨胀操作 （Expansion operation）
-        mask = cv2.dilate(mask, None, iterations=2)
+        # # 腐蚀操作（Corrosion operation）
+        # mask = cv2.erode(mask, None, iterations=2)
+        # # 膨胀操作 （Expansion operation）
+        # mask = cv2.dilate(mask, None, iterations=2)
         cv2.imshow('test', mask)
         # print(mask[0])
         c = cv2.waitKey(1)
