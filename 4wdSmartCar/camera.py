@@ -3,7 +3,7 @@ import numpy as np
 import imutils
 
 
-def camera_catch():
+def Camera_Tracking_Road():
     capture = cv2.VideoCapture(0)
     while 1:
         ret, frame = capture.read()
@@ -32,4 +32,4 @@ def camera_catch():
 
 
 if __name__ == '__main__':
-    camera_catch()
+    Camera_Tracking_Road()
