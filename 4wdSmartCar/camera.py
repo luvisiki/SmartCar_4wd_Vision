@@ -9,7 +9,7 @@ import imutils
 # @@
 def camera_stream(mode):
     try:
-        if mode == 1:  ## camera
+        if mode == 1:  # camera
             capture = cv2.VideoCapture(0)
             ret, frame = capture.read()
         if mode == 2:
@@ -21,14 +21,13 @@ def camera_stream(mode):
     return frame, ret
 
 
-def camera_catch_color():
-    capture = cv2.VideoCapture(0)
-    ret, frame = capture.read()
+def camera_catch_color(cap):
+    # capture = cv2.VideoCapture(0)
+    ret, frame = cap.read()
+    print(frame)
     # frame = imutils.resize(frame, height=320, width=480)
     # 高斯模糊
     # frame = cv2.imread('../img/step1/1-8.png')
-    # print(frame.shape)
-    # frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
     blurr = cv2.GaussianBlur(frame, (11, 11), 0)
     # 转换为hsv空间颜色
     hsv = cv2.cvtColor(blurr, cv2.COLOR_BGR2HSV)
@@ -48,17 +47,15 @@ def camera_catch_color():
     # if c == 27:
     #     pass
 
-
 def Canny(frame):
     pic = cv2.imread(frame)
     gass = cv2.GaussianBlur(pic, (11, 11), 0)
     pic = cv2.Canny(gass, 0, 100)
     cv2.imshow('test', pic)
 
-
 if __name__ == '__main__':
+    capture = cv2.VideoCapture(0)
     while 1:
-        # capture = cv2.VideoCapture()
         # frame, ret = capture.read()
-        camera_catch_color()
+        camera_catch_color(capture)
     cv2.waitKey(0)
