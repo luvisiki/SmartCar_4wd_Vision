@@ -163,3 +163,19 @@ this step is complete.
 ##	RPI.GPIO and wiringPI
 
 In Raspberry Pi, if we want to use ```GPIO``` operation, we have two choices: use the ```wiringPI``` or ```RPI``` library,  but according to the ```RPI``` developer's explanation, the ```RPI``` library is not suitable for too complicated operations, and in order to be closer to the style of the ```Arduino```, we use the ```wiringPI library``` to drive the motor and make the car move.
+
+> using 4wd Expansion board （Yabo smart car accessories）
+>
+> <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step3/3-1.png?raw=true" alt="3-1" style="zoom: 50%;" />
+>
+> 
+
+| GPIO | Encoding format | position |       Function        |
+| :--: | :-------------: | :------: | :-------------------: |
+| IO20 |    Wiringpi     |    28    |    LeftMotor_Font     |
+| IO21 |    Wiringpi     |    29    |    LeftMotor_Back     |
+| IO19 |    Wiringpi     |    24    |    RightMotor_Font    |
+| IO26 |    Wiringpi     |    25    |    RightMotor_Back    |
+| IO16 |    Wiringpi     |    27    | LeftMotor_PWMcontorl  |
+| IO13 |    Wiringpi     |    23    | RightMotor_PWMcontorl |
+
