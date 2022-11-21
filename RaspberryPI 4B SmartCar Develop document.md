@@ -100,7 +100,7 @@ Terminal input  ```sudo raspi-config ``` ,choose "Interface Options" -> "VNC"
 
 | task                                 | Library file |
 | ------------------------------------ | ------------ |
-| drive the robot                      | RPI.GPIO     |
+| drive the robot                      | RPI.GPIO-BCM |
 | Follow Track according to the camera | OPENCV       |
 | Obstacle detection method            | OPENCV       |
 
@@ -126,13 +126,15 @@ sudo apt-get install libhdf5-dev
 sudo apt-get install libatlas-base-dev
 ```
 
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step2/2-1.png?raw=true" alt="2-1" style="zoom: 50%;" />
 
+> **When i first time install opencv-contrib-python ,there is not arm7vl version in 4.6.0.66 , so pypi will auto install other linux arm version , (150MB+) i guess, it will make wheels forever; Be careful about it and Select the historical version after cancellation.**
 
 ### build X11Display
 
 > well, if we won't use hdmi to show the graph , X11 is a choice to remote show RaspberryPI graph but use client GPU
 >
-> * following in the macOS 13.0(windows are the same logical ,find some tips in nets)
+> * following in the ***macOS 13.0***(windows are the same logical ,find some tips in nets)
 
 In raspberryPI ```vi /etc/ssh/sshd_config ``` find ```X11Forwarding``` and ```X11DisplayOffset ```
 
@@ -146,9 +148,18 @@ this step is complete.
 
 > when you use ssh to connect RaspberryPI , fill ``` -X``` before your usename
 
-### using VSCODE iDE
+### Using VSCODE iDE
 
 > If you want to write code in RaspberryPI  I highly recommend VSCODE;
 >
 > Download ```Remote-SSH``` in expands and do some easy config,It can upgrade your code experience.
 
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step2/2-2.png?raw=true" alt="2-2" style="zoom: 50%;" />
+
+
+
+# Step three: Try to use the motor to move the car.
+
+##	RPI.GPIO and wiringPI
+
+In Raspberry Pi, if we want to use ```GPIO``` operation, we have two choices: use the ```wiringPI``` or ```RPI``` library,  but according to the ```RPI``` developer's explanation, the ```RPI``` library is not suitable for too complicated operations, and in order to be closer to the style of the ```Arduino```, we use the ```wiringPI library``` to drive the motor and make the car move.
