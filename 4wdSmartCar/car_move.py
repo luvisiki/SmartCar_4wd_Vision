@@ -52,7 +52,7 @@ def brake(delaytime):
 time.sleep(2)
 
 #try/except语句用来检测try语句块中的错误
-#从而让except语句捕捉异常信息并处理
+# 从而让except语句捕捉异常信息并处理
 try:
     motor_init()
     while True:
