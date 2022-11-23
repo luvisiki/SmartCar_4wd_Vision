@@ -10,21 +10,8 @@ import Motor
 # @@
 
 
-def camera_stream(mode):
-    try:
-        if mode == 1:  # camera
-            capture = cv2.VideoCapture(0)
-            ret, frame = capture.read()
-        if mode == 2:
-            frame = cv2.imread('test.png')
-            frame = cv2.cvtColor(np.array(frame), cv2.COLOR_RGB2BGR)
-            ret = 0
-    except KeyboardInterrupt:
-        pass
-    return frame, ret
 
-
-def camera_catch_color():
+def camera_catch_color(a):
     capture = cv2.VideoCapture(0)
     capture.set(3, 320)
     capture.set(4, 240)  # 像素高度？
@@ -71,23 +58,23 @@ def camera_catch_color():
             cv2.drawContours(frame, contours, -1, (0, 255, 0), 1)
             if cx >= 220:
                 print("偏右")
-                SmartCar_turn_Right(20, 20, 0.1)
-                Motor_init()
+                a.SmartCar_turn_Right(20, 20, 0.1)
+                a.Motor_init()
                 # time.sleep(0.5)
                 print(cv2.CAP_PROP_FPS)
             if cx < 220 and cx > 100:
                 print("直走")
-                SmartCar_run(30, 0.1)
-                Motor_init()
+                a.SmartCar_run(30, 0.1)
+                a.Motor_init()
                 print(cv2.CAP_PROP_FPS)
             if cx < 100:
                 print("偏左")
-                SmartCar_turn_Left(20, 20, 0.1)
-                print(LEFT_MOTOR_BACK)
-                Motor_init()
+                a.SmartCar_turn_Left(20, 20, 0.1)
+                # print(LEFT_MOTOR_BACK)
+                a.Motor_init()
                 # time.sleep(0.5)
                 # print(cv2.CAP_PROP_FPS)
-        # cv2.imshow('test', frame)
+        cv2.imshow('test', frame)
 
         # print(mask[0])
         # c = cv2.waitKey(1)
@@ -101,8 +88,8 @@ if __name__ == '__main__':
     try:
         c = Motor.MotorControl()
         c.Motor_init()
-        c.ServoAngle(180)
-        # camera_catch_color()
+        # c.ServoAngle(180)
+        camera_catch_color(c)
     except KeyboardInterrupt:
         pass
     c.Motor_stop()
