@@ -2,74 +2,7 @@ import cv2
 import numpy as np
 import wiringpi
 import time
-import car
-
-# import imutils
-
-LOW = 0
-LEFT_MOTOR_FONT = 28
-LEFT_MOTOR_BACK = 29
-RIGHT_MOTOR_FONT = 24
-RIGHT_MOTOR_BACK = 25
-LEFT_MOTOR_PWMcontorl = 27
-RIGHT_MOTOR_PWMcontorl = 23
-HIGH = 1
-
-wiringpi.wiringPiSetup()
-
-
-def Motor_init():
-    wiringpi.pinMode(LEFT_MOTOR_FONT, LOW)
-    wiringpi.pinMode(LEFT_MOTOR_BACK, LOW)
-    wiringpi.pinMode(RIGHT_MOTOR_FONT, LOW)
-    wiringpi.pinMode(RIGHT_MOTOR_BACK, LOW)
-    wiringpi.softPwmCreate(LEFT_MOTOR_PWMcontorl, 0, 100)
-    wiringpi.softPwmCreate(RIGHT_MOTOR_PWMcontorl, 0, 100)
-
-
-def SmartCar_run(speed, delay):
-    wiringpi.pinMode(LEFT_MOTOR_FONT, HIGH)
-    wiringpi.pinMode(RIGHT_MOTOR_FONT, HIGH)
-    wiringpi.pinMode(LEFT_MOTOR_BACK, LOW)
-    wiringpi.pinMode(RIGHT_MOTOR_BACK, LOW)
-    wiringpi.softPwmWrite(LEFT_MOTOR_PWMcontorl, speed)
-    wiringpi.softPwmWrite(RIGHT_MOTOR_PWMcontorl, speed)
-    time.sleep(delay)
-
-
-def SmartCar_stop(speed, delay):
-    wiringpi.pinMode(LEFT_MOTOR_FONT, LOW)
-    wiringpi.pinMode(RIGHT_MOTOR_FONT, LOW)
-    wiringpi.pinMode(LEFT_MOTOR_BACK, LOW)
-    wiringpi.pinMode(RIGHT_MOTOR_BACK, LOW)
-    wiringpi.softPwmWrite(LEFT_MOTOR_PWMcontorl, speed)
-    wiringpi.softPwmWrite(RIGHT_MOTOR_PWMcontorl, speed)
-    time.sleep(delay)
-
-
-def SmartCar_turn_Left(speed1, speed2, delay):
-    wiringpi.pinMode(LEFT_MOTOR_FONT, LOW)
-    wiringpi.pinMode(RIGHT_MOTOR_FONT, HIGH)
-    wiringpi.pinMode(LEFT_MOTOR_BACK, HIGH)
-    wiringpi.pinMode(RIGHT_MOTOR_BACK, LOW)
-    wiringpi.digitalWrite(RIGHT_MOTOR_FONT,HIGH)
-    wiringpi.digitalWrite(LEFT_MOTOR_BACK,HIGH)
-    wiringpi.softPwmWrite(LEFT_MOTOR_PWMcontorl, speed2)
-    wiringpi.softPwmWrite(RIGHT_MOTOR_PWMcontorl, speed1)
-    time.sleep(delay)
-
-
-def SmartCar_turn_Right(speed1, speed2, delay):
-    wiringpi.pinMode(LEFT_MOTOR_FONT, HIGH)
-    wiringpi.pinMode(RIGHT_MOTOR_FONT, LOW)
-    wiringpi.pinMode(LEFT_MOTOR_BACK, LOW)
-    wiringpi.pinMode(RIGHT_MOTOR_BACK, HIGH)
-    wiringpi.digitalWrite(LEFT_MOTOR_FONT,HIGH)
-    wiringpi.digitalWrite(RIGHT_MOTOR_BACK,HIGH)
-    wiringpi.softPwmWrite(LEFT_MOTOR_PWMcontorl, speed1)
-    wiringpi.softPwmWrite(RIGHT_MOTOR_PWMcontorl, speed2)
-    time.sleep(delay)
-
+import Motor
 
 # @@
 # @
@@ -163,38 +96,14 @@ def camera_catch_color():
         if cv2.waitKey(1) == ord('e'):
             break
 
-
-def Canny(frame):
-    pic = cv2.imread(frame)
-    gass = cv2.GaussianBlur(pic, (11, 11), 0)
-    pic = cv2.Canny(gass, 0, 100)
-    cv2.imshow('test', pic)
-
-def Rudder(pos):
-    angle = 2.5 + 10 * pos/180
-    # print(angle)
-    angle = int(angle)
-    wiringpi.softPwmWrite(4,angle)
-
 if __name__ == '__main__':
-    # while 1:
-    # capture = cv2.VideoCapture()
-    #     frame, ret = capture.read()
-    wiringpi.wiringPiSetup()
-    Motor_init()
-    wiringpi.pinMode(4,HIGH)
-    wiringpi.softPwmCreate(4,0,100)
-
-
+    
     try:
+        c = Motor.MotorControl()
+        c.Motor_init()
+        c.ServoAngle(180)
         # camera_catch_color()
-        
-        # while 1:
-        Rudder(0)
     except KeyboardInterrupt:
-        Motor_init()
-    # camera_catch_color()
-    # ROI = np.zeros((120, 320), dtype=int)
-    # ROI[0:120, 0:64] = 255
-    # print(ROI)
-    # cv2.waitKey(0)
+        pass
+    c.Motor_stop()
+    
