@@ -1,5 +1,5 @@
 import cv2
-from multiprocessing import Process,Queue
+from multiprocessing import Process, Queue
 import threading
 import numpy as np
 import time
@@ -13,20 +13,19 @@ import Motor
 # global cx
 
 # cx = 0
-lock = threading.Lock
 
-def camera_catch_color(car,q):
+
+def camera_catch_color(car, q):
     # global cx
-    global frame
+    # global frame
     capture = cv2.VideoCapture(0)
     capture.set(3, 320)
     capture.set(4, 240)  # 像素高度？
-    
+
     while True:
-        
+
         ret, frame = capture.read()
 
-        # frame = cv2.imread('./pic/left_angle.jpg')
         frame = frame[120:240, :]  # 320*240，只取高度的下半部分，减小计算量，较少其他因素
         blurr = cv2.GaussianBlur(frame, (11, 11), 0)
         # 转换为hsv空间颜色
@@ -60,81 +59,80 @@ def camera_catch_color(car,q):
             cx = int(M['m10'] / M['m00'])
             cy = int(M['m01'] / M['m00'])
 
-
             # print(cx, cy)
             cv2.line(frame, (cx, 0), (cx, 320), (255, 0, 0), 1)
             cv2.line(frame, (0, cy), (240, cy), (255, 0, 0), 1)
             cv2.drawContours(frame, contours, -1, (0, 255, 0), 1)
         else:
             print('there is no black lines')
-            car.Motor_init()
+            cx = 0
+            car.Motor_stop()
             # car.SmartCar_turn_Right(30,30,2)
-        cv2.waitKey(25)
-        cv2.imshow('test', frame)
-        q.put(cx)
-        # cv2.waitKey(1)
-        
-    
+        cv2.waitKey(10)
+        # cv2.imshow('test', frame)
+        q.put((cx,frame))
+        #### attention：
+        #   when using cv2.videocapture read, there has lots of index haven't been handle in time  
+        #   using q.qsize()to make sure get the newest frame and handle it.
+        #####        
+        length = q.qsize()
+        print('Queue length : ',length)
+        if length > 2:
+            for i in range(length-2):
+                cx,frame = q.get()
 
-def Motor_State(c,q):
+
+def Motor_State(c, q):
     # global cx
     # print(cx)
     while True:
-        point = q.get()
+        point,frame = q.get()
         print(point)
-        if point >= 200 and point <= 270:
-            print("偏右")
-            c.SmartCar_turn_Right(30, 20, 0.3)
-            c.Motor_init()
-            # time.sleep(0.5)
-            # print(cv2.CAP_PROP_FPS)
-        if point > 270:
-            c.SmartCar_turn_Right(40,20,0.2)
-            c.Motor_init()
-        if point <= 200 and point > 120:
-            print("直走")
-            c.SmartCar_run(30, 0.3)
-            c.Motor_init()
-            # print(cv2.CAP_PROP_FPS)
-        if point <= 120 and point > 50:
-            print("偏左")
-            c.SmartCar_turn_Left(30, 20, 0.3)
-            # print(LEFT_MOTOR_BACK)
-            c.Motor_init()
-            # time.sleep(0.5)
-            # print(cv2.CAP_PROP_FPS)
-        if point <= 50:
-            c.SmartCar_turn_Left(40,20,0.2)
-            c.Motor_init()
-    
+        cv2.imshow('test',frame)
+        cv2.waitKey(10)
+        if point == 0:
+            c.Motor_stop()
+        else:
+            if point >= 200 and point <= 270:
+                print("偏右")
+                c.SmartCar_turn_Right(25, 15, 0.1)
+                c.Motor_stop()
+            if point > 270:
+                print("太偏右了")
+                c.SmartCar_turn_Right(30, 20, 0.1)
+                c.Motor_stop()
+            if point <= 200 and point > 120:
+                print("直走")
+                c.SmartCar_run(25, 0.1)
+                c.Motor_stop()
+            if point <= 120 and point > 50:
+                print("偏左")
+                c.SmartCar_turn_Left(25, 15, 0.1)
+                c.Motor_stop()
+            if point <= 50:
+                print("太偏左了")
+                c.SmartCar_turn_Left(30, 20, 0.1)
+                c.Motor_stop()
 
 
 if __name__ == '__main__':
     # global cx, cy, frame
+    lock = threading.Lock
     try:
         c = Motor.MotorControl()
         c.Motor_init()
         q = Queue()
 
-        t1 = threading.Thread(target=camera_catch_color, args=(c,q))
-        t2 = threading.Thread(target=Motor_State,args=(c,q))
-        
-        # t1 = Process(target=camera_catch_color,args=(c,q))
-        # t2 = Process(target=Motor_State,args=(c,q))
-        # t3 = Process(target=Camera_show,args=(q,))
+        t1 = Process(target=camera_catch_color, args=(c, q))
+        # t2 = Process(target=Motor_State, args=(c, q))
         t1.start()
-        t2.start()
-        
-        # while 1:
-        #     # cx,cy,frame = camera_catch_color(capture)
-        #     Motor_State(c)
+        Motor_State(c, q)
 
-        # camera_catch_color(capture)
-        # cv2.imshow('test',frame)
-        # cv2.waitKey(1)
+        # t2.start()
 
     except KeyboardInterrupt:
         pass
     c.Motor_stop()
+    c.Motor_init()
     t1.join()
-    t2.join()
+    # t2.join()

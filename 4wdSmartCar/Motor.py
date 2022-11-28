@@ -78,11 +78,13 @@ class MotorControl:
         wiringpi.softPwmWrite(self.SERVO_PIN, int(2.5 + 10 * pos/180))
 
     def Motor_stop(self):
-        wiringpi.pinMode(self.LEFT_MOTOR_FONT, self.LOW)
-        wiringpi.pinMode(self.RIGHT_MOTOR_FONT, self.LOW)
-        wiringpi.pinMode(self.LEFT_MOTOR_BACK, self.LOW)
-        wiringpi.pinMode(self.RIGHT_MOTOR_BACK, self.LOW)
-        wiringpi.pinMode(self.SERVO_PIN, self.LOW)
+        wiringpi.digitalWrite(self.LEFT_MOTOR_FONT, self.LOW)
+        wiringpi.digitalWrite(self.RIGHT_MOTOR_FONT, self.LOW)
+        wiringpi.digitalWrite(self.LEFT_MOTOR_BACK, self.LOW)
+        wiringpi.digitalWrite(self.RIGHT_MOTOR_BACK, self.LOW)
+        wiringpi.digitalWrite(self.SERVO_PIN, self.LOW)
+        wiringpi.softPwmWrite(self.LEFT_MOTOR_PWMcontorl,0)
+        wiringpi.softPwmWrite(self.RIGHT_MOTOR_PWMcontorl,0)
             
 # if __name__ == '__main__':
 #     try:
