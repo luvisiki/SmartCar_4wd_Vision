@@ -117,7 +117,7 @@ def Motor_State(c, q):
 
 if __name__ == '__main__':
     # global cx, cy, frame
-    lock = threading.Lock
+    
     try:
         c = Motor.MotorControl()
         c.Motor_init()
