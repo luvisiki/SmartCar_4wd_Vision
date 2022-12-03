@@ -13,7 +13,7 @@ class MotorControl:
         self.LEFT_MOTOR_PWMcontorl = 27
         self.RIGHT_MOTOR_PWMcontorl = 23
 
-        self.SERVO_PIN = 4
+        # self.SERVO_PIN = 4
 
         self.LOW = 0
         self.HIGH = 1
@@ -23,10 +23,11 @@ class MotorControl:
         wiringpi.pinMode(self.LEFT_MOTOR_BACK, self.LOW)
         wiringpi.pinMode(self.RIGHT_MOTOR_FONT, self.LOW)
         wiringpi.pinMode(self.RIGHT_MOTOR_BACK, self.LOW)
-        wiringpi.pinMode(self.SERVO_PIN, self.LOW)
+        # wiringpi.pinMode(self.SERVO_PIN, self.HIGH)
         wiringpi.softPwmCreate(self.LEFT_MOTOR_PWMcontorl, 0, 100)
         wiringpi.softPwmCreate(self.RIGHT_MOTOR_PWMcontorl, 0, 100)
-        wiringpi.softPwmCreate(self.SERVO_PIN, 0, 100)
+        # wiringpi.softPwmCreate(self.SERVO_PIN, 0, 50)
+        # wiringpi.softPwmWrite(self.SERVO_PIN,self.LOW)
 
     def SmartCar_run(self, speed, delay):
         wiringpi.pinMode(self.LEFT_MOTOR_FONT, self.HIGH)
@@ -38,16 +39,19 @@ class MotorControl:
         wiringpi.softPwmWrite(self.LEFT_MOTOR_PWMcontorl, speed)
         wiringpi.softPwmWrite(self.RIGHT_MOTOR_PWMcontorl, speed)
         time.sleep(delay)
-    def SmartCar_back(self, speed, delay):
+        self.Motor_stop()
+
+    def SmartCar_back(self, speed1,speed2, delay):
         wiringpi.pinMode(self.LEFT_MOTOR_FONT, self.LOW)
         wiringpi.pinMode(self.RIGHT_MOTOR_FONT, self.LOW)
         wiringpi.pinMode(self.LEFT_MOTOR_BACK, self.HIGH)
         wiringpi.pinMode(self.RIGHT_MOTOR_BACK, self.HIGH)
         wiringpi.digitalWrite(self.LEFT_MOTOR_BACK, self.HIGH)
         wiringpi.digitalWrite(self.RIGHT_MOTOR_BACK, self.HIGH)
-        wiringpi.softPwmWrite(self.LEFT_MOTOR_PWMcontorl, speed)
-        wiringpi.softPwmWrite(self.RIGHT_MOTOR_PWMcontorl, speed)
+        wiringpi.softPwmWrite(self.LEFT_MOTOR_PWMcontorl, speed1)
+        wiringpi.softPwmWrite(self.RIGHT_MOTOR_PWMcontorl, speed2)
         time.sleep(delay)
+        self.Motor_stop()
     
 
     def SmartCar_turn_Left(self, speed1, speed2, delay):
@@ -60,6 +64,7 @@ class MotorControl:
         wiringpi.softPwmWrite(self.LEFT_MOTOR_PWMcontorl, speed2)
         wiringpi.softPwmWrite(self.RIGHT_MOTOR_PWMcontorl, speed1)
         time.sleep(delay)
+        self.Motor_stop()
 
     def SmartCar_turn_Right(self, speed1, speed2, delay):
         wiringpi.pinMode(self.LEFT_MOTOR_FONT, self.HIGH)
@@ -71,20 +76,23 @@ class MotorControl:
         wiringpi.softPwmWrite(self.LEFT_MOTOR_PWMcontorl, speed1)
         wiringpi.softPwmWrite(self.RIGHT_MOTOR_PWMcontorl, speed2)
         time.sleep(delay)
+        self.Motor_stop()
 
-    def ServoAngle(self, pos):
-        wiringpi.pinMode(self.SERVO_PIN,self.HIGH)
-        wiringpi.digitalWrite(self.SERVO_PIN,self.HIGH)
-        wiringpi.softPwmWrite(self.SERVO_PIN, int(2.5 + 10 * pos/180))
+    # def ServoAngle(self, pos):
+    #     # wiringpi.pinMode(self.SERVO_PIN,self.HIGH)
+    #     wiringpi.digitalWrite(self.SERVO_PIN,self.HIGH)
+    #     wiringpi.softPwmWrite(self.SERVO_PIN, int(2.5 + 10 * pos/180))
 
     def Motor_stop(self):
         wiringpi.digitalWrite(self.LEFT_MOTOR_FONT, self.LOW)
         wiringpi.digitalWrite(self.RIGHT_MOTOR_FONT, self.LOW)
         wiringpi.digitalWrite(self.LEFT_MOTOR_BACK, self.LOW)
         wiringpi.digitalWrite(self.RIGHT_MOTOR_BACK, self.LOW)
-        wiringpi.digitalWrite(self.SERVO_PIN, self.LOW)
+        # wiringpi.digitalWrite(self.SERVO_PIN, self.LOW)
         wiringpi.softPwmWrite(self.LEFT_MOTOR_PWMcontorl,0)
         wiringpi.softPwmWrite(self.RIGHT_MOTOR_PWMcontorl,0)
+        # wiringpi.softPwmWrite(self.SERVO_PIN,self.LOW)
+
             
 # if __name__ == '__main__':
 #     try:
