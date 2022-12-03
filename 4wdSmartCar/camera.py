@@ -4,7 +4,6 @@ import numpy as np
 import threading
 import Motor
 import pid
-import Servo
 import time
 
 # @@
@@ -112,13 +111,20 @@ def Motor_State(c, q):
             c.SmartCar_back(20, 20, 0.1)
             c.Motor_stop()
             time.sleep(0.5)
-        elif (pointY < 240*4/6 and pointY > 240*5/6):
-            if flag == 2:
-                c.SmartCar_turn_Left(90, 0, 2)
-                print("直角左转")
-            if flag == 1:
-                c.SmartCar_turn_Right(90, 0, 2)
-                print("直角右转")
+        # elif (pointY < 240*4/6 and pointY > 240*5/6):
+        #     if flag == 2:
+        #         c.SmartCar_turn_Left(90, 0, 2)
+        #         print("直角左转")
+        #     if flag == 1:
+        #         c.SmartCar_turn_Right(90, 0, 2)
+        #         print("直角右转")
+        elif flag == 2:
+            c.SmartCar_turn_Left(90, 0, 2)
+            print("直角左转")
+        elif flag == 1:
+            c.SmartCar_turn_Right(90, 0, 2)
+            print("直角右转")
+
         else:
             if (0 < pointX < 120):
                 c.SmartCar_turn_Left(25, 15, 0.1)
@@ -170,10 +176,7 @@ if __name__ == '__main__':
         c = Motor.MotorControl()
         c.Motor_init()
         q = Queue()
-        servo = Servo.Stervo_control()
-        servo.Stervo_init()
-
-        servo_pid = pid.PositionalPID(0.8, 0.1, 0.3)
+        
 
         t1 = threading.Thread(target=camera_catch_color, args=(c, q))
         t2 = threading.Thread(target=Motor_State, args=(c, q))
