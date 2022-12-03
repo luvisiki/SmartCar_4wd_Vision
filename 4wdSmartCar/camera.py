@@ -40,7 +40,7 @@ def camera_catch_color(car, q):
         # 膨胀操作
         mask = cv2.dilate(mask, None, iterations=2)
 
-        flag = Count255(mask)
+        flag, mode = Count255(mask)
         print("标志位：", flag)
 
         # @ Find the contours of the frame
@@ -71,27 +71,27 @@ def camera_catch_color(car, q):
             # car.SmartCar_turn_Right(30,30,2)
         cv2.waitKey(10)
         # cv2.imshow('test', frame)
-        q.put((cx, cy, frame, flag))
+        q.put((cx, cy, frame, flag, mode))
         # attention：
         #   when using cv2.videocapture read, there has lots of index haven't been handle in time
         #   using q.qsize()to make sure get the newest frame and handle it.
         #####
         length = q.qsize()
         # print('Queue length : ', length)
-        if length > 4:
-            for i in range(length-3):
-                cx, cy, frame, flag = q.get()
+        if length > 5:
+            for i in range(length-5):
+                cx, cy, frame, flag, mode = q.get()
     capture.release()
 
 
 def Motor_State(c, q):
 
     while True:
-        pointX, pointY, frame, flag = q.get()
+        pointX, pointY, frame, flag, mode = q.get()
         # # print((pointX, pointY))
         cv2.imshow('test', frame)
         cv2.waitKey(10)
-        servo_pid.SystemOutput = pointX
+        # servo_pid.SystemOutput = pointX
         # xservo_pid.SystemOutput = pointX
         # xservo_pid.SetStepSignal(150)
         # xservo_pid.SetInertiaTime(0.01, 0.1)
@@ -104,40 +104,30 @@ def Motor_State(c, q):
         # if times == 5:
         #     times = 0
         #     servo.Servo_control(targer_valuex, targer_valuey)
+        if mode == 1:
+            if flag == 1:
+                c.SmartCar_turn_Right(50, 0, 0.2)
+                print("直角右转")
+            elif flag == 2:
+                c.SmartCar_turn_Left(50, 0, 0.2)
+                print("直角左转")
 
-        if pointX == 0 and pointY == 0:
-            # c.Motor_stop()
-            print("后退")
-            c.SmartCar_back(20, 20, 0.1)
-            c.Motor_stop()
-            time.sleep(0.5)
-        # elif (pointY < 240*4/6 and pointY > 240*5/6):
-        #     if flag == 2:
-        #         c.SmartCar_turn_Left(90, 0, 2)
-        #         print("直角左转")
-        #     if flag == 1:
-        #         c.SmartCar_turn_Right(90, 0, 2)
-        #         print("直角右转")
-        elif flag == 2:
-            c.SmartCar_turn_Left(90, 0, 2)
-            print("直角左转")
-        elif flag == 1:
-            c.SmartCar_turn_Right(90, 0, 2)
-            print("直角右转")
+        if mode == 0:
 
-        else:
-            if (0 < pointX < 120):
+            if pointX == 0 and pointY == 0:
+                # c.Motor_stop()
+                print("后退")
+                c.SmartCar_back(20, 20, 0.1)
+                c.Motor_stop()
+                time.sleep(0.5)
+
+            elif (0 < pointX < 120):
                 c.SmartCar_turn_Left(25, 15, 0.1)
                 print("左转")
-            # time.sleep(0.1)
-            # c.Motor_stop()
+
             elif (180 < pointX < 320):
                 c.SmartCar_turn_Right(25, 15, 0.1)
                 print("右转")
-            # time.sleep(0.1)
-            # c.Motor_stop()
-
-        # 直角转弯
 
             elif (pointX >= 120 and pointX <= 200):
                 print("直走")
@@ -162,11 +152,14 @@ def Count255(frame):
 
     if count1 == 0 and count2 == 0 and (count3_left, count3_right != 0) and (count3_left > count3_right):
         flag = 1
+        mode = 1
     elif count1 == 0 and count2 == 0 and (count3_left, count3_right != 0) and (count3_left < count3_right):
         flag = 2
+        mode = 1
     else:
         flag = 0
-    return flag
+        mode = 0
+    return flag, mode
 
 
 if __name__ == '__main__':
@@ -176,7 +169,6 @@ if __name__ == '__main__':
         c = Motor.MotorControl()
         c.Motor_init()
         q = Queue()
-        
 
         t1 = threading.Thread(target=camera_catch_color, args=(c, q))
         t2 = threading.Thread(target=Motor_State, args=(c, q))
