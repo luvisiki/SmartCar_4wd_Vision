@@ -40,7 +40,7 @@ def camera_catch_color(car, q):
         # 膨胀操作
         mask = cv2.dilate(mask, None, iterations=2)
 
-        flag, mode = Count255(mask)
+        flag, mode = Count255(car, mask)
         print("标志位：", flag)
 
         # @ Find the contours of the frame
@@ -89,8 +89,9 @@ def Motor_State(c, q):
     while True:
         pointX, pointY, frame, flag, mode = q.get()
         # # print((pointX, pointY))
-        cv2.imshow('test', frame)
-        cv2.waitKey(10)
+        # cv2.imshow('test', frame)
+        # cv2.waitKey(10)
+
         # servo_pid.SystemOutput = pointX
         # xservo_pid.SystemOutput = pointX
         # xservo_pid.SetStepSignal(150)
@@ -104,6 +105,7 @@ def Motor_State(c, q):
         # if times == 5:
         #     times = 0
         #     servo.Servo_control(targer_valuex, targer_valuey)
+
         if mode == 1:
             if flag == 1:
                 c.SmartCar_turn_Right(50, 0, 0.2)
@@ -112,7 +114,7 @@ def Motor_State(c, q):
                 c.SmartCar_turn_Left(50, 0, 0.2)
                 print("直角左转")
 
-        if mode == 0:
+        elif mode == 0:
 
             if pointX == 0 and pointY == 0:
                 # c.Motor_stop()
@@ -133,9 +135,13 @@ def Motor_State(c, q):
                 print("直走")
                 c.SmartCar_run(20, 0.1)
                 c.Motor_stop()
+        elif mode == 2:
+            c.Motor_stop()
+            
+            print("There is something in front of 4WDCar, Stop the car.")
 
 
-def Count255(frame):
+def Count255(c, frame):
     # frame 's cols
     line1 = 39
     line2 = 119
@@ -149,13 +155,17 @@ def Count255(frame):
     count2 = len(np.where(Value2 == 255)[0])
     count3_left = len(np.where(Value3_Left)[0])
     count3_right = len(np.where(Value3_Right)[0])
+    cm = int(c.ultarsonic_ExaminDistant())
 
-    if count1 == 0 and count2 == 0 and (count3_left, count3_right != 0) and (count3_left > count3_right):
+    if cm <= 15:
+        flag = 0
+        mode = 2
+    elif count1 == 0 and count2 == 0 and (count3_left, count3_right != 0) and (count3_left > count3_right):
         flag = 1
         mode = 1
     elif count1 == 0 and count2 == 0 and (count3_left, count3_right != 0) and (count3_left < count3_right):
         flag = 2
-        mode = 1
+        mode = 1    
     else:
         flag = 0
         mode = 0
