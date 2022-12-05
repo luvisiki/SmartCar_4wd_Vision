@@ -1,10 +1,10 @@
 # Technical-Project : 4wdSmartCar User Build Document
 
-#Author:_Liu qianrong 202244060130_
-				_Cao Han 202244060101_
-				_Liu zongzhen 202244060131_
+#Author:_Qianrong Liu 202244060130_
+				_Han Cao 202244060101_
+				_ZongZhen Liu 202244060131_
 
-#Group:_1.7_
+#Group:_7_
 
 #Data:_2022-11_
 
@@ -187,7 +187,7 @@ All the needed pin is checked and the following code is based on it.
 
 
 
-# Step four:using camera to follow the line in Map
+# Step four:using camera to trace the line in Map
 
 ##  Algorithem in tracking line
 
@@ -241,3 +241,34 @@ This map include five patrs:
 > ###### From the pic it's clear see that binary graph is  affected by light. but not that serious , We can clearly see the outlines.
 >
 > Corrosion operation and Expansion operation can Make the lines more coherent. 
+
+### Mass coordinates
+
+In above binary graph , we can Find the largest outline. get the Mass coordinates , and help us to Fix the position of the car later.
+
+```python
+#@@@@@ in main.py:
+
+contours, hierarchy = cv2.findContours(
+            mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        if len(contours) > 0:
+            # cv2.contourArea轮廓面积，返回面积最大的轮廓 return biggest
+            c = max(contours, key=cv2.contourArea)
+            M = cv2.moments(c)  # cv2.moments计算图像矩，然后通过图象矩计算质心
+
+            # 几何中心的数学表示方式则(cx,cy)就是质心坐标 
+            # (cx,cy) means Mass coordinates
+            cx = int(M['m10'] / M['m00'])
+            cy = int(M['m01'] / M['m00'])
+
+            # print(cx, cy)
+            cv2.line(frame, (cx, 0), (cx, 320), (255, 0, 0), 1)
+            cv2.line(frame, (0, cy), (240, cy), (255, 0, 0), 1)
+            cv2.drawContours(frame, contours, -1, (0, 255, 0), 1)
+```
+
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-4.png?raw=true" alt="4-4" style="zoom: 50%;" />
+
+Adjust the position of the car according to the coordinates of the center of mass, so that the center of mass can be at the center of the image as much as possible. _grph cx(0-319)_  When cx between (120-200) drive the car go straight.If cx<120 turn left ,if cx>200 turn right.
+
+the base control is done.
