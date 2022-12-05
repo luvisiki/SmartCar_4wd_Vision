@@ -196,7 +196,7 @@ def Count255(c, frame):
     flag=0
 
 
-    
+
     if cm <= 20:
         mode = 2
     '''
