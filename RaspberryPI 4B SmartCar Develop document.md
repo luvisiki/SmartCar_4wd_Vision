@@ -158,11 +158,11 @@ this step is complete.
 
 
 
-# Step three: Try to use the motor to move the car.
+# Step three: Try to use the motor to drive the 4WDcar.
 
 ##	RPI.GPIO and wiringPI
 
-In Raspberry Pi, if we want to use ```GPIO``` operation, we have two choices: use the ```wiringPI``` or ```RPI``` library,  but according to the ```RPI``` developer's explanation, the ```RPI``` library is not suitable for too complicated operations, and in order to be closer to the style of the ```Arduino```, we use the ```wiringPI library``` to drive the motor and make the car move.
+In Raspberry Pi, if we want to use ```GPIO``` operation, we have two choices: use the ```wiringPI``` or ```RPI``` library,  but according to the ```RPI``` developer's explanation, the ```RPI``` library is not suitable for too complicated operations, and in order to be closer to the style of the ```Arduino```, we use the ```wiringPI library``` to drive the motor and make the car move, and use GPIO to drive the ultrasonic .
 
 > using 4wd Expansion board （Yabo smart car accessories）
 >
@@ -170,12 +170,74 @@ In Raspberry Pi, if we want to use ```GPIO``` operation, we have two choices: us
 >
 > 
 
-| GPIO | Encoding format | position |       Function        |
-| :--: | :-------------: | :------: | :-------------------: |
-| IO20 |    Wiringpi     |    28    |    LeftMotor_Font     |
-| IO21 |    Wiringpi     |    29    |    LeftMotor_Back     |
-| IO19 |    Wiringpi     |    24    |    RightMotor_Font    |
-| IO26 |    Wiringpi     |    25    |    RightMotor_Back    |
-| IO16 |    Wiringpi     |    27    | LeftMotor_PWMcontorl  |
-| IO13 |    Wiringpi     |    23    | RightMotor_PWMcontorl |
+| GPIO  | Encoding format | position |       Function        |
+| :---: | :-------------: | :------: | :-------------------: |
+| IO20  |    Wiringpi     |    28    |    LeftMotor_Font     |
+| IO21  |    Wiringpi     |    29    |    LeftMotor_Back     |
+| IO19  |    Wiringpi     |    24    |    RightMotor_Font    |
+| IO26  |    Wiringpi     |    25    |    RightMotor_Back    |
+| IO16  |    Wiringpi     |    27    | LeftMotor_PWMcontorl  |
+| IO13  |    Wiringpi     |    23    | RightMotor_PWMcontorl |
+| ID_SC |       BCM       |    0     |  ultrasonic_EchoPin   |
+| ID_SD |       BCM       |    1     |  ultrasonic_TrigPin   |
 
+All the needed pin is checked and the following code is based on it.
+
+> ***please check the code :Motor.py**
+
+
+
+# Step four:using camera to follow the line in Map
+
+##  Algorithem in tracking line
+
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-1.png?raw=true" alt="4-1" style="zoom: 50%;" />
+
+The pic above is the map we use this time to track the black and Avoid obstacles
+
+> **see more information in this web [map](https://detail.tmall.com/item.htm?abbucket=0&id=608358800983&rn=7655da43a24ab506fcad65360d2b235b&spm=a1z10.5-b-s.w4011-22651484606.42.6f6170b0thTocv)
+
+This map include five patrs:
+
+- sharp angle
+
+- right angle
+
+- curve
+
+- straight line
+
+- crossing line
+
+  ### Turing graph into binary graph
+
+  Use opencv to morphologically operate on the picture to remove excess noise.For example: Gaussian fuzzy, open and closed operation.after that convert RGB space into HSV space and using filter to focus in black color gamut.
+
+  ```python
+  
+  #@@@@@ in main.py:
+  
+  blurr = cv2.GaussianBlur(frame, (13, 13), 0)
+  # 转换为hsv空间颜色 turn into hsv space color
+  hsv = cv2.cvtColor(blurr, cv2.COLOR_BGR2HSV)
+  # 进行颜色锁定（黑色）hsv focus in black color
+  lower_hsv = np.array([0, 0, 0])
+  higer_hsv = np.array([180, 255, 46])
+  # turn mask into 255 or 0
+  mask = cv2.inRange(hsv, lower_hsv, higer_hsv)
+  
+  # 腐蚀操作 Corrosion operation
+  mask = cv2.erode(mask, None, iterations=2)
+  # 膨胀操作 Expansion operation
+  mask = cv2.dilate(mask, None, iterations=2)
+  ```
+
+  Now we get a **mask** with only value in 0 or 255 .we can ue ```print(mask)``` to check the array about mask.
+
+  <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-2.jpg?raw=true" alt="4-2" />
+
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-3.jpg?raw=true" alt="4-3"/>
+
+> ###### From the pic it's clear see that binary graph is  affected by light. but not that serious , We can clearly see the outlines.
+>
+> Corrosion operation and Expansion operation can Make the lines more coherent. 
