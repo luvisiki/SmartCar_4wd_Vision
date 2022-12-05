@@ -15,10 +15,10 @@ def camera_catch_color(car, q):
 
     '''
     @@@@@@@@
-    @@ Developer: QianRong LIU , id:202244060130
+    @@ Developer: QianRong LIU , id:202244060130 , ZongZhen Liu id:202244060131 
     @@ Function name: camera_catch_color 
     @@ Input: An instance of the class , An instance of the Queue
-    @@ output: cx, cy, frame, flag, mode
+    @@ put into Queue: cx, cy, frame, flag, mode 
     @@ Description: loop the frame. using Gaussian blur, Corrosion, Expansion:Morphological operation to Remove the noise of the current frame and And convert the frame into an HSV space for binary operation.
     @@@@@@@@
     '''
@@ -92,6 +92,14 @@ def camera_catch_color(car, q):
 
 
 def Motor_State(c, q):
+    '''
+    @@@@@@@@
+    @@ Developer: QianRong LIU , id:202244060130 , ZongZhen Liu id:202244060131 
+    @@ Function name: Motor_State 
+    @@ Input: An instance of the class , An instance of the Queue
+    @@ Description: get cx,cy,frame,flag and mode from Queue (where put in camera_catch_color fuction) , according to the value of mode and (cx,cy)Mass coordinates. drive the 4WDcar and follow the black line in Map. More information check the user document.
+    @@@@@@@@
+    '''
 
     while True:
         pointX, pointY, frame, flag, mode = q.get()
@@ -154,6 +162,16 @@ def Motor_State(c, q):
 
 def Count255(c, frame):
     # frame 's cols
+    '''
+    @@@@@@@@
+    @@ Developer: QianRong LIU , id:202244060130 
+    @@ Function name: Count255 
+    @@ Input: An instance of the class , frame 
+    @@ return : mode,flag
+    @@ Description: input a binary frame ,  check 3 cols (line1,2,3) and divide col into 2 parts, and compare them. Divide into six categories and make judgments.
+    @@@@@@@@
+    '''
+
     line1 = 40
     line2 = 119
     line3 = 200
@@ -216,8 +234,15 @@ def Count255(c, frame):
 
 
 if __name__ == '__main__':
-    # global cx, cy, frame
-    # lock = threading.RLock()
+    '''
+    @@@@@@@@
+    @@ Developer: QianRong LIU , id:202244060130 , ZongZhen LIU , id:202244060131 , Han Cao , id:202244060101
+    @@ Function name: main  
+    @@ Description: CREATE two sub thread
+    @@ Thread one: catch frame and do Morphological operation. put the Status variables(mode,flag,...) into Queue
+    @@ Thread two: get Status variables from Queue . According to the Status value to drvie the 4WDcar.
+    @@@@@@@@
+    '''
     try:
         c = Motor.MotorControl()
         c.Motor_init()
