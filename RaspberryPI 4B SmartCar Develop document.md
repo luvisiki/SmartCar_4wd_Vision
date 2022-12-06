@@ -324,7 +324,9 @@ According to the binary image, his characteristics can be analyzed. When the car
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-7.jpg?raw=true" alt="4-7" style="zoom: 50%;" width="300"/>
 
 So we came up with a way to solve the right-angle turning (left/right) , and use three lines to locate the current frame, namely, line1, which is the farthest from the image, line line2 at the center of the image, and line line3 closest to the car.
+
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-9.jpg?raw=true" alt="4-9" style="zoom: 50%;" width="300"/>
+
 like the purple line in frame , divide the frame into 2 pices.
 using ```numpy.where()``` to count the number of 255 , compare it and decide it whether need to turn right or left.
 ```python
