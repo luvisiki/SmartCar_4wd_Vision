@@ -5,29 +5,28 @@
 # Table of Contents
 - [Technical-Project : 4wdSmartCar User Build Document](#technical-project--4wdsmartcar-user-build-document)
 - [Table of Contents](#table-of-contents)
-- [Step one: Prepare OS env](#step-one-prepare-os-env)
+- [Prepare OS env](#prepare-os-env)
   - [\*Option](#option)
     - [Raspberry Pi Software Configuration Tool](#raspberry-pi-software-configuration-tool)
-- [Step two: Code env build](#step-two-code-env-build)
+- [Code env build](#code-env-build)
   - [list of tasks1.0](#list-of-tasks10)
     - [install package](#install-package)
     - [build X11Display](#build-x11display)
     - [Using VSCODE iDE](#using-vscode-ide)
-- [Step three: Try to use the motor to drive the 4WDcar.](#step-three-try-to-use-the-motor-to-drive-the-4wdcar)
+- [Try to use the motor to drive the 4WDcar.](#try-to-use-the-motor-to-drive-the-4wdcar)
   - [RPI.GPIO and wiringPI](#rpigpio-and-wiringpi)
-- [Step four:using camera to trace the line in Map](#step-fourusing-camera-to-trace-the-line-in-map)
+- [Using camera to trace the line in Map](#using-camera-to-trace-the-line-in-map)
   - [Algorithem in tracking line](#algorithem-in-tracking-line)
     - [Turing graph into binary graph](#turing-graph-into-binary-graph)
     - [Mass coordinates](#mass-coordinates)
 
 
 
-
-# Step one: Prepare OS env
+# Prepare OS env
 
 1. First download the software from offical website in [raspberry website](https://www.raspberrypi.com/software/)
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-1.png?raw=true" alt="1-1" style="zoom: 25%;" />
-![RUNOOB 图标](https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-1.png?raw=true)
+
 
 
 1. Open the software we download in 1.
@@ -81,7 +80,7 @@ Use the ARP command to the find currently connected device.
 We can clearly find the raspberrypi.lan show(through WIFI) as 192.168.2.219, using SSH service and Terminal to connect it.
 
 ```powershell
-ssh pi@192.168.2.129
+ssh pi@192.168.2.129 
 ```
 
 Then enter the password given above.
@@ -110,7 +109,7 @@ Terminal input  ```sudo raspi-config ``` ,choose "Interface Options" -> "VNC"
 
 
 
-# Step two: Code env build
+# Code env build
 
 ## list of tasks1.0
 
@@ -174,7 +173,7 @@ this step is complete.
 
 
 
-# Step three: Try to use the motor to drive the 4WDcar.
+# Try to use the motor to drive the 4WDcar.
 
 ##	RPI.GPIO and wiringPI
 
@@ -203,7 +202,7 @@ All the needed pin is checked and the following code is based on it.
 
 
 
-# Step four:using camera to trace the line in Map
+# Using camera to trace the line in Map
 
 ##  Algorithem in tracking line
 
