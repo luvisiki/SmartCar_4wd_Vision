@@ -239,8 +239,7 @@ This map include five patrs:
   Now we get a **mask** with only value in 0 or 255 .we can ue ```print(mask)``` to check the array about mask.
 
   <center class="half">
-    	<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-2.jpg?raw=true" width="300">
-    	<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-3.jpg?raw=true" width="300">
+    	<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-2.jpg?raw=true" width="300"><img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-3.jpg?raw=true" width="300">
   </center>
   
   
