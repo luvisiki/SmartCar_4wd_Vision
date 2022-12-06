@@ -3,7 +3,6 @@ from multiprocessing import Process, Queue
 import numpy as np
 import threading
 import Motor
-import pid
 import time
 import RPi.GPIO as GPIO
 
