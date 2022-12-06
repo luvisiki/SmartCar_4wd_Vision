@@ -30,6 +30,7 @@ Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
     - [Shifting lines](#shifting-lines)
   - [Object avoidance](#object-avoidance)
 - [⛯Start the experiment.](#start-the-experiment)
+  - [Camera and ultrasonic assembly](#camera-and-ultrasonic-assembly)
 
 
 
@@ -416,3 +417,8 @@ def ultarsonic_ExaminDistant(self):
 ```
 
 # ⛯Start the experiment.
+
+> **🔥Attention: It can be clearly seen in the tracking algorithm that the binary results are very affected by light. Please reduce the impact of dazzling as much as possible when copying the experiment, or stand next to the car and use your own shadows to cover the reflection on the map.**
+
+## Camera and ultrasonic assembly
+
