@@ -320,4 +320,4 @@ Probably the most troublesome corners are right corners and sharp corner corners
 According to the binary image, his characteristics can be analyzed. When the car shoots them in a certain position, the feature shape can be judged to be the only one.
 
 ### Right corners
-<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-7.jpg?raw=true" alt="4-7" style="zoom: 50%;" width="200"/>
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-7.jpg?raw=true" alt="4-7" style="zoom: 50%;" width="300"/>
