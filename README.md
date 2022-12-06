@@ -26,6 +26,8 @@ python main.py
 thanks a lot to my Professor: @Dr. Louis LECROSNIER_ESIGELEC
 thanks my Group member to finish it together.
 
+
+GROUP7:
 @QR LIU(myself) id :202244060130
 @ZZ LIU         id :202244060131
 @H CAO          id :202244060101
