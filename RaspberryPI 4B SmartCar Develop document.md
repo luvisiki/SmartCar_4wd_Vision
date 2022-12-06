@@ -32,6 +32,7 @@ Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
 - [⛯Start the experiment.](#start-the-experiment)
   - [Camera and ultrasonic assembly](#camera-and-ultrasonic-assembly)
   - [Possible problems in the detection](#possible-problems-in-the-detection)
+  - [Test Video show](#test-video-show)
 
 
 
@@ -434,3 +435,9 @@ The sizes of the copper column are 3cm and 6cm respectively.And just debug the c
 > 1.  When the car is stuck, it is likely because the light affects the road ahead and tries to block the reflection.
 > 2. The car starts testing from the straight road.
 > 3. When you need to stop the program , press ```crtl C ``` more times and wait. **If the car stops incorrectly and runs at full speed, try to run the program again and run the previous step again.**
+> 4. When some angles are not recognized successfully, causing the car to deviate from the track, please put him back before the bending and try to keep the camera in the center of the straight line.
+> 5. It will retreat when there are no black lines in the camera.
+
+## Test Video show
+
+Please Visit in [Video/test(10mb).mp4](Video/test(10mb).mp4)
