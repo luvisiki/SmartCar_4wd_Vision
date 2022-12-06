@@ -31,6 +31,7 @@ Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
   - [Object avoidance](#object-avoidance)
 - [⛯Start the experiment.](#start-the-experiment)
   - [Camera and ultrasonic assembly](#camera-and-ultrasonic-assembly)
+  - [Possible problems in the detection](#possible-problems-in-the-detection)
 
 
 
@@ -422,3 +423,14 @@ def ultarsonic_ExaminDistant(self):
 
 ## Camera and ultrasonic assembly
 
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step6/6-1.png?raw=true" alt="5-1" width="300"/>
+
+In order to find the best camera shooting angle, we did not use the official installation method, but assembled it through existing tools.
+
+The sizes of the copper column are 3cm and 6cm respectively.And just debug the camera when he doesn't take the ultrasonic module.
+
+## Possible problems in the detection
+
+> 1.  When the car is stuck, it is likely because the light affects the road ahead and tries to block the reflection.
+> 2. The car starts testing from the straight road.
+> 3. When you need to stop the program , press ```crtl C ``` more times and wait. **If the car stops incorrectly and runs at full speed, try to run the program again and run the previous step again.**
