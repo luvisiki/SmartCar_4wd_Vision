@@ -23,7 +23,10 @@
 
 2. Open the software we download in 1.
 
-   <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-2.png?raw=true" alt="1-2" style="zoom: 50%;" />
+   <center><img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-2.png?raw=true" alt="1-2" style="zoom: 50%;" />
+   </center>
+
+   
 
 3. choose the OS in burner and burn into the RaspberryPI 4B board. Our group choose the **Raspberry Pi OS (32-bit) -(Recommed)** as system.
 
