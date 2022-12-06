@@ -25,6 +25,7 @@ Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
   - [Handle corners at different angles](#handle-corners-at-different-angles)
     - [Right corners](#right-corners)
     - [Sharp corners](#sharp-corners)
+    - [shifting lines](#shifting-lines)
 
 
 
@@ -328,7 +329,7 @@ So we came up with a way to solve the right-angle turning (left/right) , and use
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-9.jpg?raw=true" alt="4-9" style="zoom: 50%;" width="300"/>
 
 like the purple line in frame , divide the frame into 2 pices.
-using ```numpy.where()``` to count the number of 255 , compare it and decide it whether need to turn right or left.
+using ```numpy.where()``` to **count the number of ```255```** , compare it and decide it whether need to turn right or left.
 ```python
 line1 = 40
 line2 = 119
@@ -359,4 +360,13 @@ In order to reduce the error, it is judged to be a right angle when the 255 valu
 ### Sharp corners
 
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-10.jpg?raw=true" alt="4-10" style="zoom: 50%;" width="300"/>
+
+> this frame is token from usb camera in 4wdcar
+
+The treatment of sharp angle is very similar to that of right angle, but in order not to confuse the judgment of sharp angle with other curvatures, he will start with ```line2``` instead of ```line3```.
+```python
+elif count1 == 0 and count3 != 0 and (count2_left > count2_right) and count2_left > 60:
+```
+
+### shifting lines
 
