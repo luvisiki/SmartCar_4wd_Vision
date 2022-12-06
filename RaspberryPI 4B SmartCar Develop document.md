@@ -33,6 +33,7 @@ Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
   - [Camera and ultrasonic assembly](#camera-and-ultrasonic-assembly)
   - [Possible problems in the detection](#possible-problems-in-the-detection)
   - [Test Video show](#test-video-show)
+- [Requirment](#requirment)
 
 
 
@@ -440,4 +441,7 @@ The sizes of the copper column are 3cm and 6cm respectively.And just debug the c
 
 ## Test Video show
 
-Please Visit in [Video/test(10mb).mp4](Video/test(10mb).mp4)
+Please Visit in [Video/test(10mb).mp4](Video/test(10mb).mp4) (really only 10mb) 
+
+# Requirment
+If you got trouble in some toolchains, please see the list in [piplist](PipList.md)
