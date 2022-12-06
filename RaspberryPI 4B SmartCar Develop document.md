@@ -25,7 +25,7 @@ Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
   - [Handle corners at different angles](#handle-corners-at-different-angles)
     - [Right corners](#right-corners)
     - [Sharp corners](#sharp-corners)
-    - [shifting lines](#shifting-lines)
+    - [Shifting lines](#shifting-lines)
 
 
 
@@ -359,7 +359,7 @@ In order to reduce the error, it is judged to be a right angle when the 255 valu
 
 ### Sharp corners
 
-<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-10.jpg?raw=true" alt="4-10" style="zoom: 50%;" width="300"/>
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-10.jpg?raw=true" alt="4-10" width="300"/>
 
 > this frame is token from usb camera in 4wdcar
 
@@ -368,5 +368,12 @@ The treatment of sharp angle is very similar to that of right angle, but in orde
 elif count1 == 0 and count3 != 0 and (count2_left > count2_right) and count2_left > 60:
 ```
 
-### shifting lines
+### Shifting lines
 
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-11.jpg?raw=true" alt="4-11" width="300"/>
+
+In the test, it is often found that when there is a offset straight line on the current surface, it will be detected as sharp angles or right angles. In order to solve this bug, add a more situation judgment.
+
+```python
+elif count1 != 0 and (count2_left > count2_right) and count2_left > 40:
+```
