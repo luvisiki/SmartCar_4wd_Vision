@@ -314,9 +314,10 @@ I suggested try at first and find out questions about base control code.
 If you have conducted a simple test, you will find that the above simple control car code will run out of the track for some tricky corners.Take separate photos of unrecognized corners and analyze them.
 <center class="half">
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-5.jpg?raw=true" alt="4-5" style="zoom: 50%;" width="200"/>
-<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-6.jpg?raw=true" alt="4-5" style="zoom: 50%;" width="200"/>
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-6.jpg?raw=true" alt="4-6" style="zoom: 50%;" width="200"/>
 </center>
 Probably the most troublesome corners are right corners and sharp corner corners.
 According to the binary image, his characteristics can be analyzed. When the car shoots them in a certain position, the feature shape can be judged to be the only one.
 
 ### Right corners
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-7.jpg?raw=true" alt="4-7" style="zoom: 50%;" width="200"/>
