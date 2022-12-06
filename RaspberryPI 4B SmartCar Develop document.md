@@ -357,3 +357,6 @@ if count1 == 0 and count2 == 0 and (count3_left, count3_right != 0) and (count3_
 In order to reduce the error, it is judged to be a right angle when the 255 value accounts for 50% of the left/right majority.Then debug the speed and delaytime of the motor driver, which will be very simple through right angles.
 
 ### Sharp corners
+
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-10.jpg?raw=true" alt="4-10" style="zoom: 50%;" width="300"/>
+
