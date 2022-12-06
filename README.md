@@ -15,7 +15,8 @@ If you have Interested in this repository.Have a TRY ! 🤩  See more informatio
  sudo apt-get install libhdf5-dev
  sudo apt-get install libatlas-base-dev
 ```
-
+## check the miss
+env pipList:[list](PipList.md)
 ## Clone and run the code
 ```shell
 cd 4wdSmartCar
