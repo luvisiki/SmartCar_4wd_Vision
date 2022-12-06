@@ -2,7 +2,7 @@
 
 It's a storehome to save the pic while in the experiment.
 which easily use in the markdown files.
-See more information in [User document](RaspberryPI%204B%20SmartCar%20Develop%20document.md)
+If you have Interested in this repository.Have a TRY ! 🤩  See more information in [User document](RaspberryPI%204B%20SmartCar%20Develop%20document.md)
 
 # Quick Start
 > in raspberry OS
@@ -16,7 +16,15 @@ See more information in [User document](RaspberryPI%204B%20SmartCar%20Develop%20
  sudo apt-get install libatlas-base-dev
 ```
 
-## run the code
+## Clone and run the code
 ```shell
+cd 4wdSmartCar
 python main.py
 ```
+
+## Contributors
+thanks a lot to my Professor: @Dr. Louis LECROSNIER_ESIGELEC
+thanks my Group member to finish it together.
+@QR LIU(myself) id :202244060130
+@ZZ LIU         id :202244060131
+@H CAO          id :202244060101
