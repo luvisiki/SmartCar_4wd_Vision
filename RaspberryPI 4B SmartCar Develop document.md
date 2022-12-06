@@ -18,7 +18,7 @@ Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
     - [Using VSCODE iDE](#using-vscode-ide)
 - [Try to use the motor to drive the 4WDcar.](#try-to-use-the-motor-to-drive-the-4wdcar)
   - [RPI.GPIO and wiringPI](#rpigpio-and-wiringpi)
-- [Algorithm for tracking lines](#algorithm-for-tracking-lines)
+- [Algorithm for tracking lines and Object avoidance](#algorithm-for-tracking-lines-and-object-avoidance)
   - [Composition of the map](#composition-of-the-map)
   - [Turing graph into binary graph](#turing-graph-into-binary-graph)
   - [Mass coordinates](#mass-coordinates)
@@ -26,7 +26,7 @@ Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
     - [Right corners](#right-corners)
     - [Sharp corners](#sharp-corners)
     - [Shifting lines](#shifting-lines)
-- [Object avoidance](#object-avoidance)
+  - [Object avoidance](#object-avoidance)
 
 
 
@@ -193,7 +193,7 @@ In Raspberry Pi, if we want to use ```GPIO``` operation, we have two choices: us
 | ID_SD |       BCM       |    1     |  ultrasonic_TrigPin   |
 
 All the needed pin is checked and the following code is based on it.
-# Algorithm for tracking lines
+# Algorithm for tracking lines and Object avoidance
 
 ##  Composition of the map
 
@@ -379,7 +379,34 @@ In the test, it is often found that when there is a offset straight line on the 
 elif count1 != 0 and (count2_left > count2_right) and count2_left > 40:
 ```
 
-# Object avoidance
+## Object avoidance
 
 using the ultrasonic to avoid the object.
-<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/5-1.png?raw=true" alt="5-1" width="300"/>
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step5/5-1.png?raw=true" alt="5-1" width="300"/>
+
+According to the principle of the ultrasonic sensor: by calculating the high level of the receiving end, the approximate distance of the front obstacle can be calculated through the formula.
+
+```python
+def ultarsonic_ExaminDistant(self):
+        '''
+        @@@@@@@@
+        @@ Developer: Han Cao, id:202244060101
+        @@ Fuction name: ultarsonic_ExaminDistant
+        @@ Input: none
+        @@ output: Distance measurements
+        @@ Description: Use the ultrasonic principle to detect the high level time of the EchoPin time.Then use the formula to calculate the distance from the obstacle.
+        @@@@@@@@
+        '''
+        GPIO.output(self.TrigPin, GPIO.HIGH)
+        time.sleep(0.000015)
+        GPIO.output(self.TrigPin, GPIO.LOW)
+        while not GPIO.input(self.EchoPin):
+            pass
+        t1 = time.time()
+        while GPIO.input(self.EchoPin):
+            pass
+        t2 = time.time()
+        # print ("distance is %d " % (((t2 - t1) * 340 / 2) * 100))
+        time.sleep(0.01)
+        return int(((t2 - t1) * 340 / 2) * 100)
+```
