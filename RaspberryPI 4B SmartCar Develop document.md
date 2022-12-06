@@ -1,6 +1,9 @@
 # Technical-Project : 4wdSmartCar User Build Document
 
-#Data:_2022-11_
+**Data:_2022-11_**
+A programe from Technical Project
+Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
+
 
 # Table of Contents
 - [Technical-Project : 4wdSmartCar User Build Document](#technical-project--4wdsmartcar-user-build-document)
@@ -9,7 +12,7 @@
   - [\*Option](#option)
     - [Raspberry Pi Software Configuration Tool](#raspberry-pi-software-configuration-tool)
 - [Code env build](#code-env-build)
-  - [list of tasks1.0](#list-of-tasks10)
+  - [list of tasks](#list-of-tasks)
     - [install package](#install-package)
     - [build X11Display](#build-x11display)
     - [Using VSCODE iDE](#using-vscode-ide)
@@ -27,24 +30,15 @@
 1. First download the software from offical website in [raspberry website](https://www.raspberrypi.com/software/)
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-1.png?raw=true" alt="1-1" style="zoom: 25%;" />
 
-
-
-1. Open the software we download in 1.
-
-   <center><img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-2.png?raw=true" alt="1-2" style="zoom: 50%;" />
-   </center>
-
-   
-
-3. choose the OS in burner and burn into the RaspberryPI 4B board. Our group choose the **Raspberry Pi OS (32-bit) -(Recommed)** as system.
+2. choose the OS in burner and burn into the RaspberryPI 4B board. Our group choose the **Raspberry Pi OS (32-bit) -(Recommed)** as system.
 
    <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-3.png?raw=true" alt="1-3" style="zoom: 50%;" />
 
-4. choose the sd card we Get in the class before.
+3. choose the sd card we Get in the class before.
 
    <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-4.png?raw=true" alt="1-4" style="zoom: 50%;" />
 
-5. Well..if we burn now wo will figure out some problems , the OS haven't open some basic service such as: SSH, VNC and so on. We should Set up in “Advanced settings”.**Prioritize ssh configuration** and we can connect the RaspberryPi through **Ethernet port**.
+4. Well..if we burn now wo will figure out some problems , the OS haven't open some basic service such as: SSH, VNC and so on. We should Set up in “Advanced settings”.**Prioritize ssh configuration** and we can connect the RaspberryPi through **Ethernet port**.
 
    <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-5.png?raw=true" alt="1-5" style="zoom: 50%;" />
 
@@ -67,7 +61,7 @@ WIFI_pd:xxxxx
 
 **We can build more config after in PI OS*
 
-6. After waiting for a few minutes, after the machine burns the system, the opportunity has the following tips.
+1. After waiting for a few minutes, after the machine burns the system, the opportunity has the following tips.
 
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-7.png?raw=true" alt="1-7" style="zoom: 50%;" />
 
@@ -111,13 +105,13 @@ Terminal input  ```sudo raspi-config ``` ,choose "Interface Options" -> "VNC"
 
 # Code env build
 
-## list of tasks1.0
+## list of tasks
 
 | task                                 | Library file |
 | ------------------------------------ | ------------ |
-| drive the robot                      | RPI.GPIO-BCM |
+| drive the robot                      | wiring-pi    |
 | Follow Track according to the camera | OPENCV       |
-| Obstacle detection method            | OPENCV       |
+| Obstacle detection method            | RPI-GPIO-BCM |
 
 ### install package
 
@@ -168,8 +162,6 @@ this step is complete.
 > If you want to write code in RaspberryPI  I highly recommend VSCODE;
 >
 > Download ```Remote-SSH``` in expands and do some easy config,It can upgrade your code experience.
-
-<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step2/2-2.png?raw=true" alt="2-2" style="zoom: 50%;" />
 
 
 
