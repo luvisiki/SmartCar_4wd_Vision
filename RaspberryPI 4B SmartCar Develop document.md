@@ -1,27 +1,36 @@
 # Technical-Project : 4wdSmartCar User Build Document
 
-#Author:_Qianrong Liu 202244060130_
-				_Han Cao 202244060101_
-				_ZongZhen Liu 202244060131_
-
-#Group:_7_
-
 #Data:_2022-11_
 
-[TOC]
+# Table of Contents
+- [Technical-Project : 4wdSmartCar User Build Document](#technical-project--4wdsmartcar-user-build-document)
+- [Table of Contents](#table-of-contents)
+- [Step one: Prepare OS env](#step-one-prepare-os-env)
+  - [\*Option](#option)
+    - [Raspberry Pi Software Configuration Tool](#raspberry-pi-software-configuration-tool)
+- [Step two: Code env build](#step-two-code-env-build)
+  - [list of tasks1.0](#list-of-tasks10)
+    - [install package](#install-package)
+    - [build X11Display](#build-x11display)
+    - [Using VSCODE iDE](#using-vscode-ide)
+- [Step three: Try to use the motor to drive the 4WDcar.](#step-three-try-to-use-the-motor-to-drive-the-4wdcar)
+  - [RPI.GPIO and wiringPI](#rpigpio-and-wiringpi)
+- [Step four:using camera to trace the line in Map](#step-fourusing-camera-to-trace-the-line-in-map)
+  - [Algorithem in tracking line](#algorithem-in-tracking-line)
+    - [Turing graph into binary graph](#turing-graph-into-binary-graph)
+    - [Mass coordinates](#mass-coordinates)
+
 
 
 
 # Step one: Prepare OS env
 
-
-
 1. First download the software from offical website in [raspberry website](https://www.raspberrypi.com/software/)
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-1.png?raw=true" alt="1-1" style="zoom: 25%;" />
-
+![raspberry](https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-1.png?raw=true)
 ​	***Attention**:Author using macOS13.0 ,while something different in WINODWS and LINUX,The official burner solves this problem very well.
 
-2. Open the software we download in 1.
+1. Open the software we download in 1.
 
    <center><img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-2.png?raw=true" alt="1-2" style="zoom: 50%;" />
    </center>
