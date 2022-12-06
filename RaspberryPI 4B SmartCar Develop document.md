@@ -28,7 +28,7 @@
 1. First download the software from offical website in [raspberry website](https://www.raspberrypi.com/software/)
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-1.png?raw=true" alt="1-1" style="zoom: 25%;" />
 ![raspberry](https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step1/1-1.png?raw=true)
-​	***Attention**:Author using macOS13.0 ,while something different in WINODWS and LINUX,The official burner solves this problem very well.
+
 
 1. Open the software we download in 1.
 
