@@ -24,6 +24,7 @@ Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
   - [Mass coordinates](#mass-coordinates)
   - [Handle corners at different angles](#handle-corners-at-different-angles)
     - [Right corners](#right-corners)
+    - [Sharp corners](#sharp-corners)
 
 
 
@@ -321,3 +322,36 @@ According to the binary image, his characteristics can be analyzed. When the car
 
 ### Right corners
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-7.jpg?raw=true" alt="4-7" style="zoom: 50%;" width="300"/>
+
+So we came up with a way to solve the right-angle turning (left/right) , and use three lines to locate the current frame, namely, line1, which is the farthest from the image, line line2 at the center of the image, and line line3 closest to the car.
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-9.jpg?raw=true" alt="4-9" style="zoom: 50%;" width="300"/>
+like the purple line in frame , divide the frame into 2 pices.
+using ```numpy.where()``` to count the number of 255 , compare it and decide it whether need to turn right or left.
+```python
+line1 = 40
+line2 = 119
+line3 = 200
+
+Value1 = frame[line1]
+Value2 = frame[line2]
+Value3 = frame[line3]
+Value2_Left = frame[line2, :160]
+Value2_Right = frame[line2, 160:320]
+Value3_Left = frame[line3, :160]
+Value3_Right = frame[line3, 160:320]
+count1 = len(np.where(Value1 == 255)[0])
+count2 = len(np.where(Value2 == 255)[0])
+count2_left = len(np.where(Value2_Left)[0])
+count2_right = len(np.where(Value2_Right)[0])
+count3 = len(np.where(Value3)[0])
+count3_left = len(np.where(Value3_Left)[0])
+count3_right = len(np.where(Value3_Right)[0])
+```
+We add a condition to the definition so that he can identify it as a right angle.
+```python
+# right-angle turn left
+if count1 == 0 and count2 == 0 and (count3_left, count3_right != 0) and (count3_left > count3_right) and count3_left > 80:
+```
+In order to reduce the error, it is judged to be a right angle when the 255 value accounts for 50% of the left/right majority.Then debug the speed and delaytime of the motor driver, which will be very simple through right angles.
+
+### Sharp corners
