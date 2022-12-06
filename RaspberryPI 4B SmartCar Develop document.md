@@ -382,3 +382,4 @@ elif count1 != 0 and (count2_left > count2_right) and count2_left > 40:
 # Object avoidance
 
 using the ultrasonic to avoid the object.
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/5-1.png?raw=true" alt="5-1" width="300"/>
