@@ -382,6 +382,7 @@ elif count1 != 0 and (count2_left > count2_right) and count2_left > 40:
 ## Object avoidance
 
 using the ultrasonic to avoid the object.
+
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step5/5-1.png?raw=true" alt="5-1" width="300"/>
 
 According to the principle of the ultrasonic sensor: by calculating the high level of the receiving end, the approximate distance of the front obstacle can be calculated through the formula.
