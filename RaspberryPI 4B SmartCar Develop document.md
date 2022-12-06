@@ -8,6 +8,10 @@
 
 #Data:_2022-11_
 
+[TOC]
+
+
+
 # Step one: Prepare OS env
 
 
@@ -234,9 +238,12 @@ This map include five patrs:
 
   Now we get a **mask** with only value in 0 or 255 .we can ue ```print(mask)``` to check the array about mask.
 
-  <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-2.jpg?raw=true" alt="4-2" />
-
-<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-3.jpg?raw=true" alt="4-3"/>
+  <figure class="half">
+    	<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-2.jpg?raw=true">
+    	<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-3.jpg?raw=true">
+  </figure>
+  
+  
 
 > ###### From the pic it's clear see that binary graph is  affected by light. but not that serious , We can clearly see the outlines.
 >
@@ -272,3 +279,37 @@ contours, hierarchy = cv2.findContours(
 Adjust the position of the car according to the coordinates of the center of mass, so that the center of mass can be at the center of the image as much as possible. _grph cx(0-319)_  When cx between (120-200) drive the car go straight.If cx<120 turn left ,if cx>200 turn right.
 
 the base control is done.
+
+```python
+# in main.py: cx->pointX cy->pointY
+if cx == 0 and cy == 0:
+  # when there is no External outline in this frame,(no black line)
+  print("Back")
+  c.SmartCar_back(20, 20, 0.1)
+  c.Motor_stop()
+  time.sleep(0.5)
+
+elif (0 < cx < 120):
+  c.SmartCar_turn_Left(25, 10, 1, 0.1)
+  print("Turn left")
+  # time.sleep(0.001)
+
+elif (180 < cx < 320):
+  c.SmartCar_turn_Right(25, 10, 1, 0.1)
+  print("Turn Right")
+  # time.sleep(0.001)
+
+elif (cx >= 120 and cx <= 200):
+  print("GO Straight")
+  c.SmartCar_run(15, 0.1)
+  # time.sleep(0.001)
+
+  c.Motor_stop()
+```
+
+However The judgment conditions are too simple.we have seen the  Map composition above. 
+
+I suggested try at first and find out questions about base control code.
+
+
+
