@@ -26,6 +26,7 @@ Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
     - [Right corners](#right-corners)
     - [Sharp corners](#sharp-corners)
     - [Shifting lines](#shifting-lines)
+- [Object avoidance](#object-avoidance)
 
 
 
@@ -377,3 +378,7 @@ In the test, it is often found that when there is a offset straight line on the 
 ```python
 elif count1 != 0 and (count2_left > count2_right) and count2_left > 40:
 ```
+
+# Object avoidance
+
+using the ultrasonic to avoid the object.
