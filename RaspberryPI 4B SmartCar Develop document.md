@@ -18,10 +18,11 @@ Instruct the teacher：@Dr. Louis LECROSNIER_ESIGELEC
     - [Using VSCODE iDE](#using-vscode-ide)
 - [Try to use the motor to drive the 4WDcar.](#try-to-use-the-motor-to-drive-the-4wdcar)
   - [RPI.GPIO and wiringPI](#rpigpio-and-wiringpi)
-- [Using camera to trace the line in Map](#using-camera-to-trace-the-line-in-map)
-  - [Algorithem in tracking line](#algorithem-in-tracking-line)
-    - [Turing graph into binary graph](#turing-graph-into-binary-graph)
-    - [Mass coordinates](#mass-coordinates)
+- [Algorithm for tracking lines](#algorithm-for-tracking-lines)
+  - [Composition of the map](#composition-of-the-map)
+  - [Turing graph into binary graph](#turing-graph-into-binary-graph)
+  - [Mass coordinates](#mass-coordinates)
+  - [Handle corners at different angles](#handle-corners-at-different-angles)
 
 
 
@@ -159,9 +160,8 @@ this step is complete.
 
 ### Using VSCODE iDE
 
-> If you want to write code in RaspberryPI  I highly recommend VSCODE;
->
-> Download ```Remote-SSH``` in expands and do some easy config,It can upgrade your code experience.
+If you want to write code in RaspberryPI  I highly recommend VSCODE;
+Download ```Remote-SSH``` in expands and do some easy config,It can upgrade your code experience.
 
 
 
@@ -189,14 +189,9 @@ In Raspberry Pi, if we want to use ```GPIO``` operation, we have two choices: us
 | ID_SD |       BCM       |    1     |  ultrasonic_TrigPin   |
 
 All the needed pin is checked and the following code is based on it.
+# Algorithm for tracking lines
 
-> ***please check the code :Motor.py**
-
-
-
-# Using camera to trace the line in Map
-
-##  Algorithem in tracking line
+##  Composition of the map
 
 <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-1.png?raw=true" alt="4-1" style="zoom: 50%;" />
 
@@ -216,7 +211,7 @@ This map include five patrs:
 
 - crossing line
 
-  ### Turing graph into binary graph
+## Turing graph into binary graph
 
   Use opencv to morphologically operate on the picture to remove excess noise.For example: Gaussian fuzzy, open and closed operation.after that convert RGB space into HSV space and using filter to focus in black color gamut.
 
@@ -239,10 +234,11 @@ This map include five patrs:
   mask = cv2.dilate(mask, None, iterations=2)
   ```
 
-  Now we get a **mask** with only value in 0 or 255 .we can ue ```print(mask)``` to check the array about mask.
+  We get a **mask** with only value in 0 or 255.
 
   <center class="half">
-    	<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-2.jpg?raw=true" width="300"><img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-3.jpg?raw=true" width="300">
+      <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-2.jpg?raw=true" width="200">
+      <img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-3.jpg?raw=true" width="200">
   </center>
   
   
@@ -251,7 +247,7 @@ This map include five patrs:
 >
 > Corrosion operation and Expansion operation can Make the lines more coherent. 
 
-### Mass coordinates
+## Mass coordinates
 
 In above binary graph , we can Find the largest outline. get the Mass coordinates , and help us to Fix the position of the car later.
 
@@ -313,5 +309,8 @@ However The judgment conditions are too simple.we have seen the  Map composition
 
 I suggested try at first and find out questions about base control code.
 
+## Handle corners at different angles
+If you have conducted a simple test, you will find that the above simple control car code will run out of the track for some tricky corners.Take separate photos of unrecognized corners and analyze them.
 
-
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-1.png?raw=true" alt="4-1" style="zoom: 50%;" />
+<img src="https://github.com/luvisiki/SmartCar_4wd_Vision/blob/main/img/step4/4-1.png?raw=true" alt="4-1" style="zoom: 50%;" />
